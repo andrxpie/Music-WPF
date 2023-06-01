@@ -19,17 +19,17 @@ namespace Music_WPF
     /// <summary>
     /// Interaction logic for MusicListWindow.xaml
     /// </summary>
-    public partial class MusicListWindow : Window
+    public partial class AlbumnsWindow : Window
     {
         public List<MusicAlbumn> musicAlbumns;
 
-        public MusicListWindow(int id)
+        public AlbumnsWindow(User currUser)
         {
             InitializeComponent();
-            GetMusicAlbumns();
+            GetMusicAlbumns(currUser);
         }
 
-        public void GetMusicAlbumns()
+        public void GetMusicAlbumns(User currUser)
         {
             using(SQLiteConnection connection = new SQLiteConnection(App.dbPath))
             {
@@ -38,13 +38,18 @@ namespace Music_WPF
                 try
                 {
                     musicAlbumns = connection.Table<MusicAlbumn>().ToList();
-                    albumnsListBox.ItemsSource = musicAlbumns;
+                    albumnsListBox.ItemsSource = musicAlbumns.Where(x => x.userID == currUser.id);
                 }
                 catch
                 {
                     MessageBox.Show("No albumns found", "Message", MessageBoxButton.OK);
                 }
             }
+        }
+
+        private void LogOutBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

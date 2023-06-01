@@ -2,6 +2,7 @@
 using SQLite;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -28,7 +29,6 @@ namespace Music_WPF
         public MainWindow()
         {
             InitializeComponent();
-            users = new List<User>();
             GetUsers();
         }
 
@@ -67,33 +67,68 @@ namespace Music_WPF
 
             using(SQLiteConnection connection = new SQLiteConnection(App.dbPath))
             {
-                if(connection.Table<User>().Contains(new User(loginTextBox.Text, passwordTextBox.Text)))
-                {
-                    loginTextBox.Text = string.Empty;
-                    passwordTextBox.Text = string.Empty;
-
-                    Hide();
-                    MusicListWindow musicListWindow = new MusicListWindow((new User(loginTextBox.Text, passwordTextBox.Text)).id);
-                    musicListWindow.ShowDialog();
-                    Show();
-                }
-                else
-                {
-                    if(MessageBox.Show("No users in database found, may create new account?", "Message", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                if(users != null) {
+                    if(connection.Table<User>().Contains(users.Where(x => x.login == loginTextBox.Text).First()))
                     {
                         loginTextBox.Text = string.Empty;
                         passwordTextBox.Text = string.Empty;
+
                         Hide();
 
-                        CreateNewAccount cna = new CreateNewAccount();
-                        cna.ShowDialog();
-                        users.Add(cna.newUser);
+                        AlbumnsWindow musicListWindow = new AlbumnsWindow(users.Where(x => x.login == loginTextBox.Text).First());
+                        musicListWindow.ShowDialog();   
+                            
+                        Show();
+                    }
+                    else
+                    {
+                        if(MessageBox.Show("Login not found in database, may create new account?", "Message", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                        {
+                            connection.Insert(new User(loginTextBox.Text, passwordTextBox.Text));
+                            GetUsers();
+
+                            Hide();
+                            AlbumnsWindow albumnsWindow = new AlbumnsWindow(users.Where(x => x.login == loginTextBox.Text).First());
+                            albumnsWindow.ShowDialog();
+                            Show();
+
+                            loginTextBox.Text = string.Empty;
+                            passwordTextBox.Text = string.Empty;
+                        }
+                        else
+                        {
+                            loginTextBox.Text = string.Empty;
+                            passwordTextBox.Text = string.Empty;
+                        }
+                    }
+                }
+                else
+                {
+                    if(MessageBox.Show("No users found in database, may create new?", "Message", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    {
+                        connection.Insert(new User(loginTextBox.Text, passwordTextBox.Text));
+                        GetUsers();
+
+                        Hide();
+                        AlbumnsWindow albumnsWindow = new AlbumnsWindow(users.Where(x => x.login == loginTextBox.Text).First());
+                        albumnsWindow.ShowDialog();
                         Show();
 
-                        MusicListWindow musicList = new MusicListWindow(cna.newUser.id);
+                        loginTextBox.Text = string.Empty;
+                        passwordTextBox.Text = string.Empty;
+                    }
+                    else
+                    {
+                        loginTextBox.Text = string.Empty;
+                        passwordTextBox.Text = string.Empty;
                     }
                 }
             }            
+        }
+
+        private void ExitBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

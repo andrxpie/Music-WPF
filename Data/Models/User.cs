@@ -13,9 +13,7 @@ namespace Music_WPF.Data.Models
         public string password { get; set; }
         public static int userCount { get; set; } = 0;
 
-        public User() {
-            id = ++userCount;
-        }
+        public User() {}
 
         public User(string login, string password) {
             id = ++userCount;
