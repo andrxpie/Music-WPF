@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Music_WPF"
         mc:Ignorable="d"
-        Title="Authorization" Height="250" Width="400" FontFamily="Cascadia Code" Background="#FF5346A1" Foreground="White">
+        Title="Authorization" Height="220" Width="400" FontFamily="Cascadia Code" Background="#FF5346A1" Foreground="White">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -17,13 +17,12 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Label Grid.Row="0" Grid.Column="0" Content=" Login: " HorizontalAlignment="Left" VerticalAlignment="Center" Width="60" Foreground="White"/>
         <TextBox Foreground="White" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" x:Name="loginTextBox" TextWrapping="Wrap" Background="#FF8874FF" Margin="70 10 10 10"/><Label Grid.Row="0" Grid.Column="0" Content=" Login: " HorizontalAlignment="Left" VerticalAlignment="Center" Width="60" Foreground="White"/>
         <Label Grid.Row="1" Grid.Column="0" Content=" Password: " HorizontalAlignment="Left" VerticalAlignment="Center" Width="90" Foreground="White"/>
         <TextBox Foreground="White" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" x:Name="passwordTextBox" TextWrapping="Wrap" Background="#FF8874FF" Margin="90 10 10 10"/>
-        <Button x:Name="EnterBtn" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Content="Enter" Background="#FF8874FF" Foreground="White" Margin="10" Click="EnterBtn_Click"/>
-        <Button x:Name="ExitBtn" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" Content="Exit" Background="#FFFF0978" Foreground="White" Margin="10" Click="ExitBtn_Click"/>
+        <Button x:Name="EnterBtn" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Content="Enter" Background="#FF8874FF" Foreground="White" Margin="10 10 205 10" Click="EnterBtn_Click"/>
+        <Button x:Name="ExitBtn" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Content="Exit" Background="#FFFF0978" Foreground="White" Margin="205 10 10 10" Click="ExitBtn_Click"/>
     </Grid>
 </Window>

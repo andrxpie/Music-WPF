@@ -67,24 +67,32 @@ namespace Music_WPF
 
             using(SQLiteConnection connection = new SQLiteConnection(App.dbPath))
             {
-                if(users != null) {
-                    if(connection.Table<User>().Contains(users.Where(x => x.login == loginTextBox.Text).First()))
+                if(users.Count != 0) {
+                    if(connection.Table<User>().Where(x => x.login == loginTextBox.Text).FirstOrDefault() != null)
                     {
-                        loginTextBox.Text = string.Empty;
-                        passwordTextBox.Text = string.Empty;
+                        if(connection.Table<User>().Where(x => x.login == loginTextBox.Text).FirstOrDefault().password == passwordTextBox.Text)
+                        {
+                            loginTextBox.Text = string.Empty;
+                            passwordTextBox.Text = string.Empty;
 
-                        Hide();
+                            Hide();
 
-                        AlbumnsWindow musicListWindow = new AlbumnsWindow(users.Where(x => x.login == loginTextBox.Text).First());
-                        musicListWindow.ShowDialog();   
+                            AlbumnsWindow musicListWindow = new AlbumnsWindow(connection.Table<User>().Where(x => x.login == loginTextBox.Text).FirstOrDefault());
+                            musicListWindow.ShowDialog();
                             
-                        Show();
+                            Show();
+                        }
+                        else
+                        {
+                            passwordTextBox.Text = string.Empty;
+                            MessageBox.Show("Wrong password", "Message", MessageBoxButton.OK);
+                        }
                     }
                     else
                     {
                         if(MessageBox.Show("Login not found in database, may create new account?", "Message", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                         {
-                            connection.Insert(new User(loginTextBox.Text, passwordTextBox.Text));
+                            connection.Insert(new User(loginTextBox.Text, passwordTextBox.Text, users.Count));
                             GetUsers();
 
                             Hide();
@@ -106,7 +114,7 @@ namespace Music_WPF
                 {
                     if(MessageBox.Show("No users found in database, may create new?", "Message", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                     {
-                        connection.Insert(new User(loginTextBox.Text, passwordTextBox.Text));
+                        connection.Insert(new User(loginTextBox.Text, passwordTextBox.Text, users.Count));
                         GetUsers();
 
                         Hide();
