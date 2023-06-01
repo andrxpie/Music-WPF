@@ -22,19 +22,20 @@ namespace Music_WPF
     public partial class AlbumnsWindow : Window
     {
         public List<MusicAlbumn> musicAlbumns;
+        User currUser;
 
         public AlbumnsWindow(User currUser)
         {
             InitializeComponent();
-            GetMusicAlbumns(currUser);
+            this.currUser = currUser;
+            GetMusicAlbumns();
         }
 
-        public void GetMusicAlbumns(User currUser)
+        public void GetMusicAlbumns()
         {
             using(SQLiteConnection connection = new SQLiteConnection(App.dbPath))
             {
                 connection.CreateTable<MusicAlbumn>();
-
                 try
                 {
                     musicAlbumns = connection.Table<MusicAlbumn>().ToList();
@@ -50,6 +51,32 @@ namespace Music_WPF
         private void LogOutBtn_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void newAlbumnBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Hide();
+            NewAlbumnWindow newAlbumnWindow = new NewAlbumnWindow(currUser);
+            newAlbumnWindow.ShowDialog();
+            Show();
+
+            using(SQLiteConnection connection = new SQLiteConnection(App.dbPath))
+            {
+                connection.CreateTable<MusicAlbumn>();
+                connection.Insert(newAlbumnWindow.albumn);
+            }
+
+            GetMusicAlbumns();
+        }
+
+        private void albumnsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            AlbumnDetailsWindow albumnDetailsWindow = new AlbumnDetailsWindow(albumnsListBox.SelectedItem as MusicAlbumn);
+            albumnDetailsWindow.ShowDialog();
+
+            
+
+            GetMusicAlbumns();
         }
     }
 }

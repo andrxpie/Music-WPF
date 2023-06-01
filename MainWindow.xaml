@@ -19,9 +19,9 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Label Grid.Row="0" Grid.Column="0" Content=" Login: " HorizontalAlignment="Left" VerticalAlignment="Center" Width="60" Foreground="White"/>
-        <TextBox Foreground="White" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" x:Name="loginTextBox" TextWrapping="Wrap" Background="#FF8874FF" Margin="70 10 10 10"/><Label Grid.Row="0" Grid.Column="0" Content=" Login: " HorizontalAlignment="Left" VerticalAlignment="Center" Width="60" Foreground="White"/>
+        <TextBox Foreground="White" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" x:Name="loginTextBox" TextWrapping="Wrap" Background="#FF8874FF" Margin="70 20 10 20"/><Label Grid.Row="0" Grid.Column="0" Content=" Login: " HorizontalAlignment="Left" VerticalAlignment="Center" Width="60" Foreground="White"/>
         <Label Grid.Row="1" Grid.Column="0" Content=" Password: " HorizontalAlignment="Left" VerticalAlignment="Center" Width="90" Foreground="White"/>
-        <TextBox Foreground="White" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" x:Name="passwordTextBox" TextWrapping="Wrap" Background="#FF8874FF" Margin="90 10 10 10"/>
+        <TextBox Foreground="White" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" x:Name="passwordTextBox" TextWrapping="Wrap" Background="#FF8874FF" Margin="90 20 10 20"/>
         <Button x:Name="EnterBtn" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Content="Enter" Background="#FF8874FF" Foreground="White" Margin="10 10 205 10" Click="EnterBtn_Click"/>
         <Button x:Name="ExitBtn" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Content="Exit" Background="#FFFF0978" Foreground="White" Margin="205 10 10 10" Click="ExitBtn_Click"/>
     </Grid>

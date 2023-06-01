@@ -72,14 +72,15 @@ namespace Music_WPF
                     {
                         if(connection.Table<User>().Where(x => x.login == loginTextBox.Text).FirstOrDefault().password == passwordTextBox.Text)
                         {
+                            Hide();
+
+                            User user = connection.Table<User>().Where(x => x.login == loginTextBox.Text).FirstOrDefault();
+                            AlbumnsWindow musicListWindow = new AlbumnsWindow(user);
+                            musicListWindow.ShowDialog();
+                            
                             loginTextBox.Text = string.Empty;
                             passwordTextBox.Text = string.Empty;
 
-                            Hide();
-
-                            AlbumnsWindow musicListWindow = new AlbumnsWindow(connection.Table<User>().Where(x => x.login == loginTextBox.Text).FirstOrDefault());
-                            musicListWindow.ShowDialog();
-                            
                             Show();
                         }
                         else

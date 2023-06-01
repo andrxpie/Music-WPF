@@ -24,9 +24,18 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Button Background="#FF8874FF" Foreground="White" x:Name="newAlbumnBtn" Content="New Albumn" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4" Margin="0 40" FontSize="20"/>
+        <Button Background="#FF8874FF" Foreground="White" x:Name="newAlbumnBtn" Content="New Albumn" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4" Margin="0 40" FontSize="20" Click="newAlbumnBtn_Click"/>
         <Button Background="#FFFF0978" Foreground="White" x:Name="LogOutBtn" Content="Log Out" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4" Margin="0 80 0 0" FontSize="20" Click="LogOutBtn_Click"/>
+        <Label Foreground="White" x:Name="searchLabel" Content="Search:" Grid.Column="0" Grid.Row="1" Margin="90 40 10 30" FontSize="22"/>
         <TextBox Background="#FF8874FF" Foreground="White" x:Name="searchTextBox" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Margin="0 40"/>
-        <ListBox Background="#FF8874FF" Foreground="White" x:Name="albumnsListBox" Grid.Row="2" Grid.RowSpan="3" Grid.Column="1" Grid.ColumnSpan="4"/>
+        <ListView Background="#FF8874FF" Foreground="White" x:Name="albumnsListBox" Grid.Row="2" Grid.RowSpan="3" Grid.Column="1" Grid.ColumnSpan="4" SelectionChanged="albumnsListBox_SelectionChanged">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="290" Header="Name" DisplayMemberBinding="{Binding Path=name}" />
+                    <GridViewColumn Width="290" Header="Author" DisplayMemberBinding="{Binding Path=author}" />
+                    <GridViewColumn Width="253" Header="Year" DisplayMemberBinding="{Binding Path=year}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Window>

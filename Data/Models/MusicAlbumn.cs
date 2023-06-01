@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLite;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,12 +11,13 @@ namespace Music_WPF.Data.Models
     {
         public string name { get; set; }
         public string author { get; set; }
-        public uint year { get; set; }
-        public uint userID { get; set; }
+        public int year { get; set; }
+        [PrimaryKey]
+        public int userID { get; set; }
 
         public MusicAlbumn() { }
 
-        public MusicAlbumn(string name, string author, uint year, uint userID)
+        public MusicAlbumn(string name, string author, int year, int userID)
         {
             this.name = name;
             this.author = author;
